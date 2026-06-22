@@ -1,60 +1,601 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
-  <head>
-    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
-    <title>Reza Aghajani - Home</title>
-    <link rel="stylesheet" href="styles/layout.css" type="text/css">
-    <!--[if lt IE 9]><script src="scripts/html5shiv.js"></script><![endif]-->
-  </head>
-  <body>
-    <div class="wrapper row1">
-      <header id="header" class="clear">
-        <div id="hgroup">
-          <h1><a href="#">Reza Aghajani</a></h1>
-          <h2 class="Affil">Department of Mathematics<br>
-            University of California San Diego</h2>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reza Aghajani</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F7F6F3;
+      --surface: #FFFFFF;
+      --ink: #1A1A1A;
+      --ink-muted: #6B6B6B;
+      --ink-faint: #B0AEAA;
+      --accent: #1A4FBF;
+      --accent-light: #E8EEFB;
+      --rule: #E4E2DD;
+      --tag-bg: #EDECEA;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247,246,243,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    .nav-name {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* LAYOUT */
+    .container { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 5rem 0; border-bottom: 1px solid var(--rule); }
+    section:last-of-type { border-bottom: none; }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 2.5rem;
+    }
+
+    /* HERO */
+    #bio { padding-top: 5rem; padding-bottom: 5rem; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 160px;
+      gap: 3rem;
+      align-items: start;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+    .bio-text {
+      font-size: 15.5px;
+      color: var(--ink-muted);
+      line-height: 1.8;
+      max-width: 580px;
+      margin-bottom: 2rem;
+    }
+    .bio-text strong { color: var(--ink); font-weight: 600; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--tag-bg);
+      color: var(--ink-muted);
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+    }
+    .social-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border: 1.5px solid var(--accent);
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .social-links a:hover { background: var(--accent); color: #fff; }
+    .hero-photo-placeholder {
+      width: 160px;
+      height: 160px;
+      border-radius: 12px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--accent);
+      border: 3px solid var(--surface);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .hero-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 3px solid var(--surface);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    /* PROJECTS */
+    .proj-list { display: flex; flex-direction: column; gap: 2rem; }
+    .proj-card {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .proj-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 16px rgba(26,79,191,0.08);
+    }
+    .proj-header { padding: 1.5rem 1.75rem 1.25rem; }
+    .proj-tag {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .proj-title {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+    .proj-desc {
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      line-height: 1.65;
+    }
+
+    /* PUBLICATIONS INSIDE PROJECT */
+    .pub-list {
+      border-top: 1px solid var(--rule);
+      background: var(--bg);
+      padding: 1rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .pub-list-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.25rem;
+    }
+    .pub-item {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 0 0.75rem;
+      align-items: start;
+    }
+    .pub-num {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--ink-faint);
+      padding-top: 2px;
+    }
+    .pub-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+      line-height: 1.4;
+    }
+    .pub-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .pub-title a:hover { color: var(--accent); }
+    .pub-authors {
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      margin-bottom: 0.15rem;
+    }
+    .pub-authors strong { color: var(--accent); font-weight: 600; }
+    .pub-venue {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-faint);
+    }
+
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 0 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-years {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--ink-faint);
+      padding-top: 3px;
+      line-height: 1.5;
+    }
+    .exp-role { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 0.15rem; }
+    .exp-org { font-size: 13.5px; color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; }
+    .exp-desc { font-size: 13.5px; color: var(--ink-muted); line-height: 1.65; }
+
+    /* CONTACT */
+    #contact { padding-bottom: 6rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .contact-item {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .contact-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .contact-value {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .contact-value:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-faint);
+      border-top: 1px solid var(--rule);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-photo-placeholder, .hero-photo { width: 100px; height: 100px; order: -1; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.25rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 1rem; }
+      .container { padding: 0 1.25rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-name" href="#bio">reza aghajani</a>
+    <ul class="nav-links">
+      <li><a href="#bio">Bio</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- BIO -->
+  <section id="bio">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <p class="hero-eyebrow">AI Safety · Alignment · Reasoning</p>
+          <h1>Reza Aghajani</h1>
+          <p class="bio-text">
+            Research Scientist at <strong>Meta Superintelligence Lab</strong>, working on safety, alignment, and reasoning capabilities of agentic AI systems. Previously at <strong>Google DeepMind</strong> and <strong>YouTube</strong>, where I built LLM-based agents and models to combat misinformation at scale. Ph.D. in Applied Mathematics from <strong>Brown University</strong>, with 8+ years of experience developing and serving large-scale AI models.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Agentic AI Safety</span>
+            <span class="tag">Chain-of-Thought</span>
+            <span class="tag">LLM Post-Training</span>
+            <span class="tag">Reinforcement Learning</span>
+            <span class="tag">Stochastic Processes</span>
+          </div>
+          <div class="social-links">
+            <a href="https://scholar.google.com/citations?user=nvlJ6SwAAAAJ&hl=en" target="_blank">Google Scholar</a>
+            <a href="https://www.linkedin.com/in/reza-aghajani-374457101/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/reza-aghajani" target="_blank">GitHub</a>
+          </div>
         </div>
-        <nav>
-          <ul>
-            <li>Home</li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="teaching.html">Teaching</a></li>
-            <li><a href="cv.html">CV </a></li>
-          </ul>
-        </nav>
-      </header>
-    </div>
-    <!-- content -->
-    <div class="wrapper row2">
-      <div id="container" class="clear">
-        <table class="noborder">
-          <tbody>
-            <tr class="noborder">
-              <td class="noborder">
-                <figure> <img src="images/me.jpg" alt="" height="305" width="273">
-                </figure>
-              </td>
-              <td class="noborder">
-                <h2 class="firstpage">About</h2>
-                <p class="Tozih"> I am an S.E.W. Visiting Assistant Professor in
-                  the <a href="http://math.ucsd.edu/"> Department of
-                    Mathematics </a> at the <a href="https://ucsd.edu/">
-                    University of California, San Diego </a>. My interests
-                  include Probability Theory and Stochastic Analysis, with
-                  applications in Stochastic Networks and Biology. </p>
-                <h2 class="firstpage">Address</h2>
-                <p class="myaddress"> <b> Email: </b> maghajani@ucsd.edu </p>
-                <p class="myaddress"> <b> Office: </b> Room 6333, Applied
-                  Physics &amp; Mathematics Building </p>
-                <p class="myaddress"> <b> Phone: </b> (858) 246-2599 </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="hero-photo-placeholder">RA</div>
       </div>
     </div>
-    <!-- Footer -->
-    <div class="wrapper row3"> </div>
-    
-  </body>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label">Projects</p>
+      <div class="proj-list">
+
+        <!-- PROJECT 1 -->
+        <div class="proj-card">
+          <div class="proj-header">
+            <span class="proj-tag">AI Safety</span>
+            <div class="proj-title">Agentic AI Safety via Chain-of-Thought Monitoring</div>
+            <div class="proj-desc">Developing robust safety frameworks for autonomous AI agents by monitoring intermediate reasoning steps. Extends the Deliberative Alignment method for Agentic Safety via SFT- and RL-based Post-Training.</div>
+          </div>
+          <div class="pub-list">
+            <div class="pub-list-label">Publications</div>
+            <div class="pub-item">
+              <span class="pub-num">1</span>
+              <div>
+                <div class="pub-title"><a href="https://ai.meta.com/static-resource/muse-spark-safety-and-preparedness-report/" target="_blank">Muse Spark Safety &amp; Preparedness Report</a></div>
+                <div class="pub-authors">MSL Preparedness &amp; Red Teaming &amp; Alignment Team (incl. <strong>R. Aghajani</strong>), Meta</div>
+                <div class="pub-venue">Meta Technical Report · May 2026</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 2 -->
+        <div class="proj-card">
+          <div class="proj-header">
+            <span class="proj-tag">LLM Post-Training</span>
+            <div class="proj-title">Post-Training LLM Agents via Collaborative Self-Play</div>
+            <div class="proj-desc">New paradigms to improve the capabilities of LLM-based assistant agents by training them in collaborative game settings — covering both social capabilities and steerable clarification policies.</div>
+          </div>
+          <div class="pub-list">
+            <div class="pub-list-label">Publications</div>
+            <div class="pub-item">
+              <span class="pub-num">1</span>
+              <div>
+                <div class="pub-title"><a href="https://arxiv.org/abs/2512.04068" target="_blank">Learning Steerable Clarification Policies with Collaborative Self-Play</a></div>
+                <div class="pub-authors">J. Berant, M. Chen, A. Fisch, <strong>R. Aghajani</strong>, F. Huot, M. Lapata, J. Eisenstein</div>
+                <div class="pub-venue">arXiv:2512.04068 · December 2025</div>
+              </div>
+            </div>
+            <div class="pub-item">
+              <span class="pub-num">2</span>
+              <div>
+                <div class="pub-title">Don't Lie to Your Friends: Learning What You Know from Collaborative Self-Play</div>
+                <div class="pub-authors">J. Eisenstein, <strong>R. Aghajani</strong>, A. Fisch, D. Dua, F. Huot, M. Lapata, V. Zayats, J. Berant</div>
+                <div class="pub-venue">Submitted · arXiv</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 3 -->
+        <div class="proj-card">
+          <div class="proj-header">
+            <span class="proj-tag">Reasoning</span>
+            <div class="proj-title">Enhanced Reasoning Capabilities for AI Assistants</div>
+            <div class="proj-desc">Improved reasoning and tool-use via advanced RL techniques. Designed AI Raters to facilitate RLAIF by providing machine feedback in domains lacking objective ground truth.</div>
+          </div>
+        </div>
+
+        <!-- PROJECT 4 -->
+        <div class="proj-card">
+          <div class="proj-header">
+            <span class="proj-tag">GenAI Detection</span>
+            <div class="proj-title">GenAI Image Detection</div>
+            <div class="proj-desc">Led end-to-end development and launch of a GenAI Image detector using Visual Transformers and Diffusion models. Deployed for Google Image Search and Google Ads Safety to enforce content policies on AI-generated images.</div>
+          </div>
+        </div>
+
+        <!-- PROJECT 5 -->
+        <div class="proj-card">
+          <div class="proj-header">
+            <span class="proj-tag">Trust &amp; Safety</span>
+            <div class="proj-title">Reducing Harmful Misinformation on YouTube</div>
+            <div class="proj-desc">Developed and served Deep Neural Network and NLP-based models to reduce the prevalence of harmful misinformation on YouTube's Recommendation Systems. Designed a novel paradigm for unbiased evaluation of model changes.</div>
+          </div>
+        </div>
+
+        <!-- PROJECT 6 -->
+        <div class="proj-card">
+          <div class="proj-header">
+            <span class="proj-tag">Math / Theory</span>
+            <div class="proj-title">Analysis of Large-Scale Networks in Heavy Traffic</div>
+            <div class="proj-desc">Analyzed load-balancing algorithms for large-scale Stochastic Networks using SPDEs. Solved a 25-year-old open problem on quality-of-service of many-server queueing networks under heavy traffic.</div>
+          </div>
+          <div class="pub-list">
+            <div class="pub-list-label">Publications</div>
+            <div class="pub-item">
+              <span class="pub-num">1</span>
+              <div>
+                <div class="pub-title">The Limit of Stationary Distributions of Many-Server Queues in the Halfin-Whitt Regime</div>
+                <div class="pub-authors"><strong>R. Aghajani</strong>, K. Ramanan</div>
+                <div class="pub-venue">Mathematics of Operations Research, Vol. 45, No. 3 · 2020</div>
+              </div>
+            </div>
+            <div class="pub-item">
+              <span class="pub-num">2</span>
+              <div>
+                <div class="pub-title">The Hydrodynamic Limit of a Randomized Load Balancing Network</div>
+                <div class="pub-authors"><strong>R. Aghajani</strong>, K. Ramanan</div>
+                <div class="pub-venue">Annals of Applied Probability, Vol. 29, No. 4 · 2019</div>
+              </div>
+            </div>
+            <div class="pub-item">
+              <span class="pub-num">3</span>
+              <div>
+                <div class="pub-title">Ergodicity of an SPDE Associated with a Many-Server Queue</div>
+                <div class="pub-authors"><strong>R. Aghajani</strong>, K. Ramanan</div>
+                <div class="pub-venue">Annals of Applied Probability, Vol. 29, No. 2 · 2019</div>
+              </div>
+            </div>
+            <div class="pub-item">
+              <span class="pub-num">4</span>
+              <div>
+                <div class="pub-title">The PDE Method for the Analysis of Randomized Load Balancing Networks</div>
+                <div class="pub-authors"><strong>R. Aghajani</strong>, X. Li, K. Ramanan</div>
+                <div class="pub-venue">Proc. ACM Meas. Anal. Comput. Syst., Vol. 1, No. 2 · 2018</div>
+              </div>
+            </div>
+            <div class="pub-item">
+              <span class="pub-num">5</span>
+              <div>
+                <div class="pub-title">Large Scale Analysis of Unreliable Stochastic Networks</div>
+                <div class="pub-authors"><strong>R. Aghajani</strong>, P. Robert, W. Sun</div>
+                <div class="pub-venue">Annals of Applied Probability, Vol. 28, No. 2 · 2018</div>
+              </div>
+            </div>
+            <div class="pub-item">
+              <span class="pub-num">6</span>
+              <div>
+                <div class="pub-title">Generalized Majorization-Minimization</div>
+                <div class="pub-authors">S. Parizi, K. He, <strong>R. Aghajani</strong>, S. Sclaroff, P. Felzenszwalb</div>
+                <div class="pub-venue">ICML 2019</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <p style="margin-top:1.75rem; font-size:13px; color:var(--ink-faint);">
+        Full list on <a href="https://scholar.google.com/citations?user=nvlJ6SwAAAAJ&hl=en" target="_blank" style="color:var(--accent); text-decoration:none; font-weight:500;">Google Scholar →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label">Experience</p>
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-years">2025 –<br>Present</div>
+          <div>
+            <div class="exp-role">Senior Research Scientist</div>
+            <div class="exp-org">Meta Superintelligence Lab · Menlo Park, CA</div>
+            <div class="exp-desc">Focusing on safety and alignment of advanced agentic AI systems. Researching novel methods for monitoring and controlling autonomous agent behavior through reasoning analysis.</div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-years">2023 –<br>2025</div>
+          <div>
+            <div class="exp-role">Senior Research Scientist</div>
+            <div class="exp-org">Google DeepMind · San Francisco, CA</div>
+            <div class="exp-desc">Developed LLM-based assistant agents and multimodal GenAI models to empower Google products against misleading information and manipulated media. Foundation Research unit.</div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-years">2019 –<br>2023</div>
+          <div>
+            <div class="exp-role">Senior Software Engineer</div>
+            <div class="exp-org">YouTube (Google) · San Bruno, CA</div>
+            <div class="exp-desc">Modeling tech-lead in YouTube's Search and Discovery. Developed and deployed SOTA NLP and Vision models to reduce harmful misinformation on YouTube's Recommendation Platform.</div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-years">2016 –<br>2019</div>
+          <div>
+            <div class="exp-role">Visiting Assistant Professor</div>
+            <div class="exp-org">UC San Diego, Dept. of Mathematics · La Jolla, CA</div>
+            <div class="exp-desc">Research on Stochastic Networks. Teaching Statistics, Probability, and Mathematics of Finance.</div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-years">Summer<br>2014</div>
+          <div>
+            <div class="exp-role">Visiting Researcher</div>
+            <div class="exp-org">INRIA · Paris, France</div>
+            <div class="exp-desc">Research visit at the Institute for Research in Computer Science.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Contact</p>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span class="contact-label">Email</span>
+          <a class="contact-value" href="mailto:reza.m.aghajani@gmail.com">reza.m.aghajani@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">LinkedIn</span>
+          <a class="contact-value" href="https://www.linkedin.com/in/reza-aghajani-374457101/" target="_blank">reza-aghajani</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Google Scholar</span>
+          <a class="contact-value" href="https://scholar.google.com/citations?user=nvlJ6SwAAAAJ&hl=en" target="_blank">Publications →</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">GitHub</span>
+          <a class="contact-value" href="https://github.com/reza-aghajani" target="_blank">reza-aghajani</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      © 2026 Reza Aghajani · aghajani.me
+    </div>
+  </footer>
+
+</body>
 </html>

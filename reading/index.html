@@ -39,8 +39,6 @@
   .search input { width: 100%; padding: 10px 14px; font-size: 14px; font-family: var(--sans); border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--bg); color: var(--text); }
   .search input:focus { outline: none; border-color: var(--accent); }
   .search input::placeholder { color: var(--text-dim); }
-
-  /* Section list */
   .section-list { display: flex; flex-direction: column; gap: 2px; }
   .section-row { display: grid; grid-template-columns: 1fr auto auto; gap: 1.5rem; align-items: center; padding: 14px; border-radius: var(--radius); cursor: pointer; transition: background 0.1s; }
   .section-row:hover { background: var(--surface); }
@@ -50,15 +48,11 @@
   .progress-dot { width: 6px; height: 6px; border-radius: 1px; background: var(--border-strong); }
   .progress-dot.read { background: var(--read); }
   .section-count { font-family: var(--mono); font-size: 12px; color: var(--text-muted); min-width: 44px; text-align: right; font-variant-numeric: tabular-nums; }
-
-  /* Folder list */
   .folder-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 2rem; }
   .folder-row { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; padding: 11px 14px; border-radius: var(--radius); cursor: pointer; transition: background 0.1s; }
   .folder-row:hover { background: var(--surface); }
   .folder-name { font-size: 14px; color: var(--text-muted); }
   .folder-count { font-family: var(--mono); font-size: 12px; color: var(--text-dim); min-width: 44px; text-align: right; font-variant-numeric: tabular-nums; }
-
-  /* Nav headers */
   .nav-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
   .back-btn { background: none; border: none; padding: 4px 0; font-size: 13px; color: var(--text-muted); cursor: pointer; font-family: var(--sans); flex-shrink: 0; }
   .back-btn:hover { color: var(--accent); }
@@ -66,8 +60,6 @@
   .nav-breadcrumb { font-size: 12px; color: var(--text-dim); margin-bottom: 2px; }
   .nav-title { font-family: var(--serif); font-size: 24px; font-weight: 400; margin: 0; }
   .nav-stats { font-family: var(--mono); font-size: 12px; color: var(--text-muted); }
-
-  /* Papers */
   .subsection { margin-bottom: 2.5rem; }
   .subsection:last-child { margin-bottom: 0; }
   .subsection-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin: 0 0 0.75rem; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
@@ -85,12 +77,9 @@
   .paper-links a { font-size: 12px; color: var(--accent); text-decoration: none; font-family: var(--mono); }
   .paper-links a:hover { color: var(--accent-hover); text-decoration: underline; }
   .paper-note { margin-top: 10px; padding-left: 14px; border-left: 2px solid var(--border-strong); font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--text-muted); line-height: 1.6; }
-
-  /* Search */
   .search-meta { font-family: var(--mono); font-size: 12px; color: var(--text-muted); margin-bottom: 1.25rem; }
   .search-result-folder { font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
   .state { padding: 3rem 1rem; text-align: center; color: var(--text-muted); font-size: 14px; }
-
   @media (max-width: 600px) {
     .container { padding: 1.5rem 1rem 4rem; }
     .masthead h1 { font-size: 22px; }
@@ -100,45 +89,6 @@
 </style>
 </head>
 <body>
-
-<!--
-  ════════════════════════════════════════════════════════════════
-  HOW TO EDIT THIS LIBRARY
-  ════════════════════════════════════════════════════════════════
-  Papers live in the PAPERS array. To add a paper, copy this
-  template and fill in the fields. Only `folder` and `title` are required.
-  `folder` must match one of the folder names listed in SECTIONS.
-
-  {
-    folder: 'AI Safety',    // required, must match SECTIONS folders
-    subsection: 'Deception, Scheming & Reward Hacking', // optional grouping
-    title: 'Paper title here',              // required
-    authors: 'A. Author et al.',            // optional
-    year: 2024,                             // optional
-    arxiv: 'https://arxiv.org/abs/...',     // optional
-    doi: 'https://doi.org/...',             // optional
-    pdf: 'pdfs/filename.pdf',               // optional
-    note: 'Optional reading note.',         // optional
-    done: false                             // optional, defaults false
-  }
-
-  Sections and their folders:
-    'Model Behavior & Alignment'       → Safety
-    'Robustness & Attacks'             → Safety
-    'LLM Alignment & Post-training'
-    'Agentic Systems'
-    'Theoretical Foundations'          → folders: Reinforcement Learning,
-                                         Generative Models & Deep Learning,
-                                         Optimal Transport,
-                                         Probabilistic ML & Inference
-    'Human & Social Dimensions'        → folders: Theory of Mind & Social Cognition,
-                                         Clarification, Ambiguity & Dialogue,
-                                         Human-AI Interaction & Society
-    'Fact-Checking & Media Integrity'  → folders: Fact-Checking & Content Moderation,
-                                         Synthetic Media Detection & Vision
-  ════════════════════════════════════════════════════════════════
--->
-
 <div class="container">
   <header class="masthead">
     <h1>Reading</h1>
@@ -149,224 +99,185 @@
   </div>
   <div id="content"></div>
 </div>
-
 <script>
-// ─── SECTIONS ────────────────────────────────────────────────────────────────
 const SECTIONS = [
   { name: 'AI Safety', folders: ['AI Safety'] },
   { name: 'LLM Alignment & Post-training', folders: ['LLM Alignment & Post-training'] },
   { name: 'Agentic Systems',               folders: ['Agentic Systems'] },
-  {
-    name: 'Theoretical Foundations',
-    folders: ['Reinforcement Learning', 'Generative Models & Deep Learning', 'Optimal Transport', 'Probabilistic ML & Inference']
-  },
-  {
-    name: 'Human & Social Dimensions',
-    folders: ['Theory of Mind & Social Cognition', 'Clarification, Ambiguity & Dialogue', 'Human-AI Interaction & Society']
-  },
-  {
-    name: 'Fact-Checking & Media Integrity',
-    folders: ['Fact-Checking & Content Moderation', 'Synthetic Media Detection & Vision']
-  },
+  { name: 'Theoretical Foundations', folders: ['Reinforcement Learning', 'Generative Models & Deep Learning', 'Optimal Transport', 'Probabilistic ML & Inference'] },
+  { name: 'Human & Social Dimensions', folders: ['Theory of Mind & Social Cognition', 'Clarification, Ambiguity & Dialogue', 'Human-AI Interaction & Society'] },
+  { name: 'Fact-Checking & Media Integrity', folders: ['Fact-Checking & Content Moderation', 'Synthetic Media Detection & Vision'] },
 ];
-
-// ─── PAPERS ──────────────────────────────────────────────────────────────────
 const PAPERS = [
-  // ── Model Behavior & Alignment ──────────────────────────────────────────
-  { folder: 'AI Safety', subsection: 'Deception, Scheming & Reward Hacking', title: 'Sycophancy to subterfuge: Investigating reward-tampering in large language models', arxiv: 'https://arxiv.org/abs/2406.10162' },
-  { folder: 'AI Safety', subsection: 'Deception, Scheming & Reward Hacking', title: 'Frontier Models are Capable of In-context Scheming', arxiv: 'https://arxiv.org/abs/2412.04984' },
-  { folder: 'AI Safety', subsection: 'Deception, Scheming & Reward Hacking', title: 'Correlated proxies: A new definition and improved mitigation for reward hacking', arxiv: 'https://arxiv.org/abs/2403.03185' },
-  { folder: 'AI Safety', subsection: 'Deception, Scheming & Reward Hacking', title: 'Alignment faking in large language models', arxiv: 'https://arxiv.org/abs/2412.14093' },
-  { folder: 'AI Safety', subsection: 'Deception, Scheming & Reward Hacking', title: 'Monitoring reasoning models for misbehavior and the risks of promoting obfuscation', arxiv: 'https://arxiv.org/abs/2503.11926' },
-  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Towards understanding sycophancy in language models', arxiv: 'https://arxiv.org/abs/2310.13548' },
-  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Teaching models to balance resisting and accepting persuasion', arxiv: 'https://arxiv.org/abs/2410.14596' },
-  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'From hard refusals to safe-completions: Toward output-centric safety training', arxiv: 'https://arxiv.org/abs/2508.09224' },
-  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Backtracking improves generation safety', arxiv: 'https://arxiv.org/abs/2409.14586' },
-  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Rule Based Rewards for language model safety', arxiv: 'https://arxiv.org/abs/2411.01111' },
-  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Training a helpful and harmless assistant with reinforcement learning from human feedback', arxiv: 'https://arxiv.org/abs/2204.05862' },
-  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Llama Guard: LLM-based input-output safeguard for Human-AI conversations', arxiv: 'https://arxiv.org/abs/2312.06674' },
-  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'Language Models don\'t always say what they think: Unfaithful explanations in chain-of-thought prompting', arxiv: 'https://arxiv.org/abs/2305.04388' },
-  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'Reasoning models don\'t always say what they think', arxiv: 'https://arxiv.org/abs/2505.05410' },
-  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'Reasoning about uncertainty: Do reasoning models know when they don\'t know?', arxiv: 'https://arxiv.org/abs/2506.18183' },
-  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'Beyond \'aha!\': Toward systematic meta-abilities alignment in large reasoning models', arxiv: 'https://arxiv.org/abs/2505.10554' },
-  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'The Art of Refusal: A Survey of Abstention in Large Language Models', arxiv: 'https://arxiv.org/abs/2407.18418' },
-  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'LACIE: Listener-Aware Finetuning for Confidence Calibration in Large Language Models', arxiv: 'https://arxiv.org/abs/2405.21028' },
-
-  // ── Model Behavior & Alignment: Robustness & Attacks ────────────────────
-  { folder: 'AI Safety', subsection: 'Jailbreaking & Adversarial Robustness', title: 'H-CoT: Hijacking the chain-of-thought safety reasoning mechanism to jailbreak large Reasoning Models, including OpenAI o1/o3, DeepSeek-R1, and Gemini 2.0 Flash Thinking', arxiv: 'https://arxiv.org/abs/2502.12893' },
-  { folder: 'AI Safety', subsection: 'Jailbreaking & Adversarial Robustness', title: 'Challenges in ensuring AI safety in DeepSeek-R1 models: The shortcomings of Reinforcement Learning strategies', arxiv: 'https://arxiv.org/abs/2501.17030' },
-  { folder: 'AI Safety', subsection: 'Jailbreaking & Adversarial Robustness', title: 'XSTest: A test suite for identifying eXaggerated Safety behaviours in large language models', arxiv: 'https://arxiv.org/abs/2308.01263' },
-  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: 'ConfusedPilot: Confused deputy risks in RAG-based LLMs', arxiv: 'https://arxiv.org/abs/2408.04870' },
-  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: 'TrojanRAG: Retrieval-Augmented Generation can be backdoor driver in large language models', arxiv: 'https://arxiv.org/abs/2405.13401' },
-  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: '"Glue pizza and eat rocks" -- Exploiting Vulnerabilities in Retrieval-Augmented Generative Models', arxiv: 'https://arxiv.org/abs/2406.19417' },
-  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: 'PoisonedRAG: Knowledge corruption attacks to retrieval-Augmented Generation of large language models', arxiv: 'https://arxiv.org/abs/2402.07867' },
-  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: 'Pandora: Jailbreak GPTs by Retrieval Augmented Generation Poisoning', arxiv: 'https://arxiv.org/abs/2402.08416' },
-  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: 'Towards more robust retrieval-Augmented Generation: Evaluating RAG under adversarial poisoning attacks', arxiv: 'https://arxiv.org/abs/2412.16708' },
-
-  // ── LLM Alignment & Post-training ────────────────────────────────────────
-  { folder: 'LLM Alignment & Post-training', subsection: 'RLHF & Preference Optimization', title: 'Direct Preference Optimization: Your language model is secretly a reward model', arxiv: 'https://arxiv.org/abs/2305.18290' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'RLHF & Preference Optimization', title: 'Fine-tuning language models from human preferences', arxiv: 'https://arxiv.org/abs/1909.08593' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'RLHF & Preference Optimization', title: 'Multi-turn Reinforcement Learning from preference Human Feedback', arxiv: 'https://arxiv.org/abs/2405.14655' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'RLHF & Preference Optimization', title: 'Learning to summarize from human feedback', arxiv: 'https://arxiv.org/abs/2009.01325' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'RLHF & Preference Optimization', title: 'Training language models to follow instructions with human feedback', arxiv: 'https://arxiv.org/abs/2203.02155' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'Chain of thought empowers transformers to solve inherently serial problems', arxiv: 'https://arxiv.org/abs/2402.12875' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'Chain-of-thought prompting elicits reasoning in large language models', arxiv: 'https://arxiv.org/abs/2201.11903' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'Deciphering the factors influencing the efficacy of chain-of-Thought: Probability, memorization, and noisy reasoning', arxiv: 'https://arxiv.org/abs/2407.01687' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'STaR: Bootstrapping Reasoning With Reasoning', arxiv: 'https://arxiv.org/abs/2203.14465' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'Training Chain-of-Thought via Latent-Variable Inference', arxiv: 'https://arxiv.org/abs/2312.02179' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'A minimalist approach to LLM reasoning: From rejection sampling to reinforce', arxiv: 'https://arxiv.org/abs/2504.11343' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'Inference-Time Scaling', title: 'ETS: Efficient Tree Search for inference-time scaling', arxiv: 'https://arxiv.org/abs/2502.13575' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'Inference-Time Scaling', title: 'Large language monkeys: Scaling inference compute with repeated sampling', arxiv: 'https://arxiv.org/abs/2407.21787' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'Inference-Time Scaling', title: 'Smaller, weaker, yet better: Training LLM reasoners via compute-optimal sampling', arxiv: 'https://arxiv.org/abs/2408.16737' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'Inference-Time Scaling', title: 'Are more LLM calls all you need? Towards scaling laws of compound inference systems', arxiv: 'https://arxiv.org/abs/2403.02419' },
+  { folder: 'AI Safety', subsection: 'Deception, Scheming & Reward Hacking', title: 'Sycophancy to subterfuge: Investigating reward-tampering in large language models', arxiv: 'https://arxiv.org/abs/2406.10162', pdf: 'pdfefile:///SyncedFolders/papers/2406_10162.pdf' },
+  { folder: 'AI Safety', subsection: 'Deception, Scheming & Reward Hacking', title: 'Frontier Models are Capable of In-context Scheming', arxiv: 'https://arxiv.org/abs/2412.04984', pdf: 'pdfefile:///SyncedFolders/papers/2412_04984.pdf' },
+  { folder: 'AI Safety', subsection: 'Deception, Scheming & Reward Hacking', title: 'Correlated proxies: A new definition and improved mitigation for reward hacking', arxiv: 'https://arxiv.org/abs/2403.03185', pdf: 'pdfefile:///SyncedFolders/papers/2403_03185.pdf' },
+  { folder: 'AI Safety', subsection: 'Deception, Scheming & Reward Hacking', title: 'Alignment faking in large language models', arxiv: 'https://arxiv.org/abs/2412.14093', pdf: 'pdfefile:///SyncedFolders/papers/2412_14093.pdf' },
+  { folder: 'AI Safety', subsection: 'Deception, Scheming & Reward Hacking', title: 'Monitoring reasoning models for misbehavior and the risks of promoting obfuscation', arxiv: 'https://arxiv.org/abs/2503.11926', pdf: 'pdfefile:///SyncedFolders/papers/2503_11926.pdf' },
+  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Towards understanding sycophancy in language models', arxiv: 'https://arxiv.org/abs/2310.13548', pdf: 'pdfefile:///SyncedFolders/papers/2310_13548.pdf' },
+  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Teaching models to balance resisting and accepting persuasion', arxiv: 'https://arxiv.org/abs/2410.14596', pdf: 'pdfefile:///SyncedFolders/papers/2410_14596.pdf' },
+  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'From hard refusals to safe-completions: Toward output-centric safety training', arxiv: 'https://arxiv.org/abs/2508.09224', pdf: 'pdfefile:///SyncedFolders/papers/2508_09224.pdf' },
+  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Backtracking improves generation safety', arxiv: 'https://arxiv.org/abs/2409.14586', pdf: 'pdfefile:///SyncedFolders/papers/2409_14586.pdf' },
+  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Rule Based Rewards for language model safety', arxiv: 'https://arxiv.org/abs/2411.01111', pdf: 'pdfefile:///SyncedFolders/papers/2411_01111.pdf' },
+  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Training a helpful and harmless assistant with reinforcement learning from human feedback', arxiv: 'https://arxiv.org/abs/2204.05862', pdf: 'pdfefile:///SyncedFolders/papers/2204_05862.pdf' },
+  { folder: 'AI Safety', subsection: 'Sycophancy & Safety Training', title: 'Llama Guard: LLM-based input-output safeguard for Human-AI conversations', arxiv: 'https://arxiv.org/abs/2312.06674', pdf: 'pdfefile:///SyncedFolders/papers/2312_06674.pdf' },
+  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'Language Models don\'t always say what they think: Unfaithful explanations in chain-of-thought prompting', arxiv: 'https://arxiv.org/abs/2305.04388', pdf: 'pdfefile:///SyncedFolders/papers/2305_04388.pdf' },
+  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'Reasoning models don\'t always say what they think', arxiv: 'https://arxiv.org/abs/2505.05410', pdf: 'pdfefile:///SyncedFolders/papers/2505_05410.pdf' },
+  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'Reasoning about uncertainty: Do reasoning models know when they don\'t know?', arxiv: 'https://arxiv.org/abs/2506.18183', pdf: 'pdfefile:///SyncedFolders/papers/2506_18183.pdf' },
+  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'Beyond \'aha!\': Toward systematic meta-abilities alignment in large reasoning models', arxiv: 'https://arxiv.org/abs/2505.10554', pdf: 'pdfefile:///SyncedFolders/papers/2505_10554.pdf' },
+  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'The Art of Refusal: A Survey of Abstention in Large Language Models', arxiv: 'https://arxiv.org/abs/2407.18418', pdf: 'pdfefile:///SyncedFolders/papers/2407_18418.pdf' },
+  { folder: 'AI Safety', subsection: 'Reasoning Faithfulness & Calibration', title: 'LACIE: Listener-Aware Finetuning for Confidence Calibration in Large Language Models', arxiv: 'https://arxiv.org/abs/2405.21028', pdf: 'pdfefile:///SyncedFolders/papers/2405_21028.pdf' },
+  { folder: 'AI Safety', subsection: 'Jailbreaking & Adversarial Robustness', title: 'H-CoT: Hijacking the chain-of-thought safety reasoning mechanism to jailbreak large Reasoning Models, including OpenAI o1/o3, DeepSeek-R1, and Gemini 2.0 Flash Thinking', arxiv: 'https://arxiv.org/abs/2502.12893', pdf: 'pdfefile:///SyncedFolders/papers/2502_12893.pdf' },
+  { folder: 'AI Safety', subsection: 'Jailbreaking & Adversarial Robustness', title: 'Challenges in ensuring AI safety in DeepSeek-R1 models: The shortcomings of Reinforcement Learning strategies', arxiv: 'https://arxiv.org/abs/2501.17030', pdf: 'pdfefile:///SyncedFolders/papers/2501_17030.pdf' },
+  { folder: 'AI Safety', subsection: 'Jailbreaking & Adversarial Robustness', title: 'XSTest: A test suite for identifying eXaggerated Safety behaviours in large language models', arxiv: 'https://arxiv.org/abs/2308.01263', pdf: 'pdfefile:///SyncedFolders/papers/2308_01263.pdf' },
+  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: 'ConfusedPilot: Confused deputy risks in RAG-based LLMs', arxiv: 'https://arxiv.org/abs/2408.04870', pdf: 'pdfefile:///SyncedFolders/papers/2408_04870.pdf' },
+  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: 'TrojanRAG: Retrieval-Augmented Generation can be backdoor driver in large language models', arxiv: 'https://arxiv.org/abs/2405.13401', pdf: 'pdfefile:///SyncedFolders/papers/2405_13401.pdf' },
+  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: '"Glue pizza and eat rocks" -- Exploiting Vulnerabilities in Retrieval-Augmented Generative Models', arxiv: 'https://arxiv.org/abs/2406.19417', pdf: 'pdfefile:///SyncedFolders/papers/2406_19417.pdf' },
+  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: 'PoisonedRAG: Knowledge corruption attacks to retrieval-Augmented Generation of large language models', arxiv: 'https://arxiv.org/abs/2402.07867', pdf: 'pdfefile:///SyncedFolders/papers/2402_07867.pdf' },
+  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: 'Pandora: Jailbreak GPTs by Retrieval Augmented Generation Poisoning', arxiv: 'https://arxiv.org/abs/2402.08416', pdf: 'pdfefile:///SyncedFolders/papers/2402_08416.pdf' },
+  { folder: 'AI Safety', subsection: 'RAG Security & Attacks', title: 'Towards more robust retrieval-Augmented Generation: Evaluating RAG under adversarial poisoning attacks', arxiv: 'https://arxiv.org/abs/2412.16708', pdf: 'pdfefile:///SyncedFolders/papers/2412_16708.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'RLHF & Preference Optimization', title: 'Direct Preference Optimization: Your language model is secretly a reward model', arxiv: 'https://arxiv.org/abs/2305.18290', pdf: 'pdfefile:///SyncedFolders/papers/2305_18290.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'RLHF & Preference Optimization', title: 'Fine-tuning language models from human preferences', arxiv: 'https://arxiv.org/abs/1909.08593', pdf: 'pdfefile:///SyncedFolders/papers/1909_08593.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'RLHF & Preference Optimization', title: 'Multi-turn Reinforcement Learning from preference Human Feedback', arxiv: 'https://arxiv.org/abs/2405.14655', pdf: 'pdfefile:///SyncedFolders/papers/2405_14655.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'RLHF & Preference Optimization', title: 'Learning to summarize from human feedback', arxiv: 'https://arxiv.org/abs/2009.01325', pdf: 'pdfefile:///SyncedFolders/papers/2009_01325.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'RLHF & Preference Optimization', title: 'Training language models to follow instructions with human feedback', arxiv: 'https://arxiv.org/abs/2203.02155', pdf: 'pdfefile:///SyncedFolders/papers/2203_02155.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'Chain of thought empowers transformers to solve inherently serial problems', arxiv: 'https://arxiv.org/abs/2402.12875', pdf: 'pdfefile:///SyncedFolders/papers/2402_12875.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'Chain-of-thought prompting elicits reasoning in large language models', arxiv: 'https://arxiv.org/abs/2201.11903', pdf: 'pdfefile:///SyncedFolders/papers/2201_11903.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'Deciphering the factors influencing the efficacy of chain-of-Thought: Probability, memorization, and noisy reasoning', arxiv: 'https://arxiv.org/abs/2407.01687', pdf: 'pdfefile:///SyncedFolders/papers/2407_01687.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'STaR: Bootstrapping Reasoning With Reasoning', arxiv: 'https://arxiv.org/abs/2203.14465', pdf: 'pdfefile:///SyncedFolders/papers/2203_14465.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'Training Chain-of-Thought via Latent-Variable Inference', arxiv: 'https://arxiv.org/abs/2312.02179', pdf: 'pdfefile:///SyncedFolders/papers/2312_02179.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'CoT Methods & Training', title: 'A minimalist approach to LLM reasoning: From rejection sampling to reinforce', arxiv: 'https://arxiv.org/abs/2504.11343', pdf: 'pdfefile:///SyncedFolders/papers/2504_11343.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'Inference-Time Scaling', title: 'ETS: Efficient Tree Search for inference-time scaling', arxiv: 'https://arxiv.org/abs/2502.13575', pdf: 'pdfefile:///SyncedFolders/papers/2502_13575.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'Inference-Time Scaling', title: 'Large language monkeys: Scaling inference compute with repeated sampling', arxiv: 'https://arxiv.org/abs/2407.21787', pdf: 'pdfefile:///SyncedFolders/papers/2407_21787.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'Inference-Time Scaling', title: 'Smaller, weaker, yet better: Training LLM reasoners via compute-optimal sampling', arxiv: 'https://arxiv.org/abs/2408.16737', pdf: 'pdfefile:///SyncedFolders/papers/2408_16737.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'Inference-Time Scaling', title: 'Are more LLM calls all you need? Towards scaling laws of compound inference systems', arxiv: 'https://arxiv.org/abs/2403.02419', pdf: 'pdfefile:///SyncedFolders/papers/2403_02419.pdf' },
   { folder: 'LLM Alignment & Post-training', subsection: 'LLM Planning', title: 'ENHANCING LLMS PLANNING CAPABILITIES THROUGH INTRINSIC SELF-CRITIQUE' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'LLM Planning', title: 'Exploring and benchmarking the planning capabilities of large language models', arxiv: 'https://arxiv.org/abs/2406.13094' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'LLM Planning', title: 'Planning in natural language improves LLM search for code generation', arxiv: 'https://arxiv.org/abs/2409.03733' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'Benchmarks & Capability Evaluation', title: 'Unsupervised evaluation of code LLMs with round-trip correctness', arxiv: 'https://arxiv.org/abs/2402.08699' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'Benchmarks & Capability Evaluation', title: 'Improving Neutral Point of View text generation through parameter-efficient reinforcement learning and a small-scale high-quality dataset', arxiv: 'https://arxiv.org/abs/2503.03654' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'LLM Planning', title: 'Exploring and benchmarking the planning capabilities of large language models', arxiv: 'https://arxiv.org/abs/2406.13094', pdf: 'pdfefile:///SyncedFolders/papers/2406_13094.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'LLM Planning', title: 'Planning in natural language improves LLM search for code generation', arxiv: 'https://arxiv.org/abs/2409.03733', pdf: 'pdfefile:///SyncedFolders/papers/2409_03733.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'Benchmarks & Capability Evaluation', title: 'Unsupervised evaluation of code LLMs with round-trip correctness', arxiv: 'https://arxiv.org/abs/2402.08699', pdf: 'pdfefile:///SyncedFolders/papers/2402_08699.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'Benchmarks & Capability Evaluation', title: 'Improving Neutral Point of View text generation through parameter-efficient reinforcement learning and a small-scale high-quality dataset', arxiv: 'https://arxiv.org/abs/2503.03654', pdf: 'pdfefile:///SyncedFolders/papers/2503_03654.pdf' },
   { folder: 'LLM Alignment & Post-training', subsection: 'Benchmarks & Capability Evaluation', title: 'Exceptions, instantiations, and overgeneralization: Insights into how language models process generics', doi: 'https://doi.org/10.1162/coli_a_00530' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'Factuality & Consistency', title: 'AlignScore: Evaluating factual consistency with a unified alignment function', arxiv: 'https://arxiv.org/abs/2305.16739' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'Factuality & Consistency', title: 'BERTScore: Evaluating Text Generation with BERT', arxiv: 'https://arxiv.org/abs/1904.09675' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'Factuality & Consistency', title: 'Long-form factuality in large language models', arxiv: 'https://arxiv.org/abs/2403.18802' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'Knowledge, Grounding & Temporal Adaptation', title: 'StreamingQA: A benchmark for adaptation to new knowledge over time in question answering models', arxiv: 'https://arxiv.org/abs/2205.11388' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'Knowledge, Grounding & Temporal Adaptation', title: 'On the risk of misinformation pollution with Large Language Models', arxiv: 'https://arxiv.org/abs/2305.13661' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'Factuality & Consistency', title: 'AlignScore: Evaluating factual consistency with a unified alignment function', arxiv: 'https://arxiv.org/abs/2305.16739', pdf: 'pdfefile:///SyncedFolders/papers/2305_16739.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'Factuality & Consistency', title: 'BERTScore: Evaluating Text Generation with BERT', arxiv: 'https://arxiv.org/abs/1904.09675', pdf: 'pdfefile:///SyncedFolders/papers/1904_09675.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'Factuality & Consistency', title: 'Long-form factuality in large language models', arxiv: 'https://arxiv.org/abs/2403.18802', pdf: 'pdfefile:///SyncedFolders/papers/2403_18802.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'Knowledge, Grounding & Temporal Adaptation', title: 'StreamingQA: A benchmark for adaptation to new knowledge over time in question answering models', arxiv: 'https://arxiv.org/abs/2205.11388', pdf: 'pdfefile:///SyncedFolders/papers/2205_11388.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'Knowledge, Grounding & Temporal Adaptation', title: 'On the risk of misinformation pollution with Large Language Models', arxiv: 'https://arxiv.org/abs/2305.13661', pdf: 'pdfefile:///SyncedFolders/papers/2305_13661.pdf' },
   { folder: 'LLM Alignment & Post-training', subsection: 'Knowledge, Grounding & Temporal Adaptation', title: 'Grounding gaps in language model generations', doi: 'https://doi.org/10.18653/v1/2024.naacl-long.348' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'RAG Methods & Evaluation', title: 'Self-RAG: Learning to retrieve, generate, and critique through self-reflection', arxiv: 'https://arxiv.org/abs/2310.11511' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'RAG Methods & Evaluation', title: 'Reliable, adaptable, and attributable language models with retrieval', arxiv: 'https://arxiv.org/abs/2403.03187' },
-  { folder: 'LLM Alignment & Post-training', subsection: 'RAG Methods & Evaluation', title: 'CRAG -- Comprehensive RAG Benchmark', arxiv: 'https://arxiv.org/abs/2406.04744' },
-
-  // ── Agentic Systems ───────────────────────────────────────────────────────
-  { folder: 'Agentic Systems', subsection: 'Agent Simulation & Evaluation', title: 'AgentBoard: An Analytical Evaluation Board of Multi-turn LLM Agents', arxiv: 'https://arxiv.org/abs/2401.13178' },
-  { folder: 'Agentic Systems', subsection: 'Agent Simulation & Evaluation', title: 'Generative Agents: Interactive Simulacra of Human Behavior', arxiv: 'https://arxiv.org/abs/2304.03442' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'RAG Methods & Evaluation', title: 'Self-RAG: Learning to retrieve, generate, and critique through self-reflection', arxiv: 'https://arxiv.org/abs/2310.11511', pdf: 'pdfefile:///SyncedFolders/papers/2310_11511.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'RAG Methods & Evaluation', title: 'Reliable, adaptable, and attributable language models with retrieval', arxiv: 'https://arxiv.org/abs/2403.03187', pdf: 'pdfefile:///SyncedFolders/papers/2403_03187.pdf' },
+  { folder: 'LLM Alignment & Post-training', subsection: 'RAG Methods & Evaluation', title: 'CRAG -- Comprehensive RAG Benchmark', arxiv: 'https://arxiv.org/abs/2406.04744', pdf: 'pdfefile:///SyncedFolders/papers/2406_04744.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Agent Simulation & Evaluation', title: 'AgentBoard: An Analytical Evaluation Board of Multi-turn LLM Agents', arxiv: 'https://arxiv.org/abs/2401.13178', pdf: 'pdfefile:///SyncedFolders/papers/2401_13178.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Agent Simulation & Evaluation', title: 'Generative Agents: Interactive Simulacra of Human Behavior', arxiv: 'https://arxiv.org/abs/2304.03442', pdf: 'pdfefile:///SyncedFolders/papers/2304_03442.pdf' },
   { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'How we built our multi-agent research system' },
-  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'Why Do Multi-Agent LLM Systems Fail?', arxiv: 'https://arxiv.org/abs/2503.13657' },
-  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'Model Swarms: Collaborative search to adapt LLM experts via swarm intelligence', arxiv: 'https://arxiv.org/abs/2410.11163' },
-  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'Heterogeneous Swarms: Jointly optimizing model roles and weights for multi-LLM systems', arxiv: 'https://arxiv.org/abs/2502.04510' },
-  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'When One LLM Drools, Multi-LLM Collaboration Rules', arxiv: 'https://arxiv.org/abs/2502.04506' },
-  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'MALT: Improving Reasoning with Multi-Agent LLM Training', arxiv: 'https://arxiv.org/abs/2412.01928' },
-  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'Dynamic LLM-Agent Network: An LLM-agent Collaboration Framework with Agent Team Optimization', arxiv: 'https://arxiv.org/abs/2310.02170' },
-  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'ReConcile: Round-Table Conference Improves Reasoning via Consensus among Diverse LLMs', arxiv: 'https://arxiv.org/abs/2309.13007' },
-  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'AssistanceZero: Scalably Solving Assistance Games', arxiv: 'https://arxiv.org/abs/2504.07091' },
-  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'Charting the shapes of stories with game theory', arxiv: 'https://arxiv.org/abs/2412.05747' },
-  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'Will systems of LLM agents cooperate: An investigation into a social dilemma', arxiv: 'https://arxiv.org/abs/2501.16173' },
-  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'Training language models for social deduction with multi-agent reinforcement learning', arxiv: 'https://arxiv.org/abs/2502.06060' },
-  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'Autocurricula and the emergence of innovation from social interaction: A manifesto for multi-agent intelligence research', arxiv: 'https://arxiv.org/abs/1903.00742' },
+  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'Why Do Multi-Agent LLM Systems Fail?', arxiv: 'https://arxiv.org/abs/2503.13657', pdf: 'pdfefile:///SyncedFolders/papers/2503_13657.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'Model Swarms: Collaborative search to adapt LLM experts via swarm intelligence', arxiv: 'https://arxiv.org/abs/2410.11163', pdf: 'pdfefile:///SyncedFolders/papers/2410_11163.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'Heterogeneous Swarms: Jointly optimizing model roles and weights for multi-LLM systems', arxiv: 'https://arxiv.org/abs/2502.04510', pdf: 'pdfefile:///SyncedFolders/papers/2502_04510.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'When One LLM Drools, Multi-LLM Collaboration Rules', arxiv: 'https://arxiv.org/abs/2502.04506', pdf: 'pdfefile:///SyncedFolders/papers/2502_04506.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'MALT: Improving Reasoning with Multi-Agent LLM Training', arxiv: 'https://arxiv.org/abs/2412.01928', pdf: 'pdfefile:///SyncedFolders/papers/2412_01928.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'Dynamic LLM-Agent Network: An LLM-agent Collaboration Framework with Agent Team Optimization', arxiv: 'https://arxiv.org/abs/2310.02170', pdf: 'pdfefile:///SyncedFolders/papers/2310_02170.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Collaboration Frameworks', title: 'ReConcile: Round-Table Conference Improves Reasoning via Consensus among Diverse LLMs', arxiv: 'https://arxiv.org/abs/2309.13007', pdf: 'pdfefile:///SyncedFolders/papers/2309_13007.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'AssistanceZero: Scalably Solving Assistance Games', arxiv: 'https://arxiv.org/abs/2504.07091', pdf: 'pdfefile:///SyncedFolders/papers/2504_07091.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'Charting the shapes of stories with game theory', arxiv: 'https://arxiv.org/abs/2412.05747', pdf: 'pdfefile:///SyncedFolders/papers/2412_05747.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'Will systems of LLM agents cooperate: An investigation into a social dilemma', arxiv: 'https://arxiv.org/abs/2501.16173', pdf: 'pdfefile:///SyncedFolders/papers/2501_16173.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'Training language models for social deduction with multi-agent reinforcement learning', arxiv: 'https://arxiv.org/abs/2502.06060', pdf: 'pdfefile:///SyncedFolders/papers/2502_06060.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'Autocurricula and the emergence of innovation from social interaction: A manifesto for multi-agent intelligence research', arxiv: 'https://arxiv.org/abs/1903.00742', pdf: 'pdfefile:///SyncedFolders/papers/1903_00742.pdf' },
   { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'Human-level play in the game of Diplomacy by combining language models with strategic reasoning', doi: 'https://doi.org/10.1126/science.ade9097' },
-  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'Multiagent Learning in Large Anonymous Games', arxiv: 'https://arxiv.org/abs/0903.2282' },
-  { folder: 'Agentic Systems', subsection: 'Tree Search & Algorithms', title: 'Mastering Atari, Go, chess and shogi by planning with a learned model', arxiv: 'https://arxiv.org/abs/1911.08265' },
+  { folder: 'Agentic Systems', subsection: 'Strategic & Game-Theoretic Agents', title: 'Multiagent Learning in Large Anonymous Games', arxiv: 'https://arxiv.org/abs/0903.2282', pdf: 'pdfefile:///SyncedFolders/papers/0903_2282.pdf' },
+  { folder: 'Agentic Systems', subsection: 'Tree Search & Algorithms', title: 'Mastering Atari, Go, chess and shogi by planning with a learned model', arxiv: 'https://arxiv.org/abs/1911.08265', pdf: 'pdfefile:///SyncedFolders/papers/1911_08265.pdf' },
   { folder: 'Agentic Systems', subsection: 'Tree Search & Algorithms', title: 'A Survey of Monte Carlo Tree Search Methods', doi: 'https://doi.org/10.1109/TCIAIG.2012.2186810' },
   { folder: 'Agentic Systems', subsection: 'Mathematical & Olympiad Reasoning', title: 'Solving olympiad geometry without human demonstrations', doi: 'https://doi.org/10.1038/s41586-023-06747-5' },
-  { folder: 'Agentic Systems', subsection: 'Mathematical & Olympiad Reasoning', title: 'Gold-medalist performance in solving Olympiad geometry with AlphaGeometry2', arxiv: 'https://arxiv.org/abs/2502.03544' },
-
-  // ── Theoretical Foundations: Reinforcement Learning ──────────────────────
-  { folder: 'Reinforcement Learning', subsection: 'Offline RL', title: 'Offline reinforcement learning with implicit Q-learning', arxiv: 'https://arxiv.org/abs/2110.06169' },
-  { folder: 'Reinforcement Learning', subsection: 'Offline RL', title: 'Offline reinforcement learning: Tutorial, review, and perspectives on open problems', arxiv: 'https://arxiv.org/abs/2005.01643' },
+  { folder: 'Agentic Systems', subsection: 'Mathematical & Olympiad Reasoning', title: 'Gold-medalist performance in solving Olympiad geometry with AlphaGeometry2', arxiv: 'https://arxiv.org/abs/2502.03544', pdf: 'pdfefile:///SyncedFolders/papers/2502_03544.pdf' },
+  { folder: 'Reinforcement Learning', subsection: 'Offline RL', title: 'Offline reinforcement learning with implicit Q-learning', arxiv: 'https://arxiv.org/abs/2110.06169', pdf: 'pdfefile:///SyncedFolders/papers/2110_06169.pdf' },
+  { folder: 'Reinforcement Learning', subsection: 'Offline RL', title: 'Offline reinforcement learning: Tutorial, review, and perspectives on open problems', arxiv: 'https://arxiv.org/abs/2005.01643', pdf: 'pdfefile:///SyncedFolders/papers/2005_01643.pdf' },
   { folder: 'Reinforcement Learning', subsection: 'RL Theory & Algorithms', title: 'Discovering faster matrix multiplication algorithms with reinforcement learning', doi: 'https://doi.org/10.1038/s41586-022-05172-4' },
-  { folder: 'Reinforcement Learning', subsection: 'RL Theory & Algorithms', title: 'RL with KL penalties is better viewed as Bayesian inference', arxiv: 'https://arxiv.org/abs/2205.11275' },
-  { folder: 'Reinforcement Learning', subsection: 'RL Theory & Algorithms', title: 'Evolving Alignment via Asymmetric Self-Play', arxiv: 'https://arxiv.org/abs/2411.00062' },
+  { folder: 'Reinforcement Learning', subsection: 'RL Theory & Algorithms', title: 'RL with KL penalties is better viewed as Bayesian inference', arxiv: 'https://arxiv.org/abs/2205.11275', pdf: 'pdfefile:///SyncedFolders/papers/2205_11275.pdf' },
+  { folder: 'Reinforcement Learning', subsection: 'RL Theory & Algorithms', title: 'Evolving Alignment via Asymmetric Self-Play', arxiv: 'https://arxiv.org/abs/2411.00062', pdf: 'pdfefile:///SyncedFolders/papers/2411_00062.pdf' },
   { folder: 'Reinforcement Learning', subsection: 'RL Theory & Algorithms', title: 'Prediction, learning, and games' },
   { folder: 'Reinforcement Learning', subsection: 'RL Theory & Algorithms', title: 'Offline RL for generative design of protein binders', doi: 'https://doi.org/10.1101/2023.11.29.569328' },
-  { folder: 'Reinforcement Learning', subsection: 'RL Theory & Algorithms', title: 'Proximal Policy Optimization Algorithms', arxiv: 'https://arxiv.org/abs/1707.06347' },
-
-  // ── Theoretical Foundations: Generative Models & Deep Learning ───────────
-  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Denoising Diffusion Probabilistic Models', arxiv: 'https://arxiv.org/abs/2006.11239' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Score-based generative modeling through stochastic differential equations', arxiv: 'https://arxiv.org/abs/2011.13456' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Diffusion model alignment using Direct Preference Optimization', arxiv: 'https://arxiv.org/abs/2311.12908' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Understanding Diffusion Objectives as the ELBO with Simple Data Augmentation', arxiv: 'https://arxiv.org/abs/2303.00848' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Consistency Models', arxiv: 'https://arxiv.org/abs/2303.01469' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Generative Modeling by Estimating Gradients of the Data Distribution', arxiv: 'https://arxiv.org/abs/1907.05600' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Generative Architectures', title: 'An Introduction to Variational Autoencoders', arxiv: 'https://arxiv.org/abs/1906.02691' },
+  { folder: 'Reinforcement Learning', subsection: 'RL Theory & Algorithms', title: 'Proximal Policy Optimization Algorithms', arxiv: 'https://arxiv.org/abs/1707.06347', pdf: 'pdfefile:///SyncedFolders/papers/1707_06347.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Denoising Diffusion Probabilistic Models', arxiv: 'https://arxiv.org/abs/2006.11239', pdf: 'pdfefile:///SyncedFolders/papers/2006_11239.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Score-based generative modeling through stochastic differential equations', arxiv: 'https://arxiv.org/abs/2011.13456', pdf: 'pdfefile:///SyncedFolders/papers/2011_13456.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Diffusion model alignment using Direct Preference Optimization', arxiv: 'https://arxiv.org/abs/2311.12908', pdf: 'pdfefile:///SyncedFolders/papers/2311_12908.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Understanding Diffusion Objectives as the ELBO with Simple Data Augmentation', arxiv: 'https://arxiv.org/abs/2303.00848', pdf: 'pdfefile:///SyncedFolders/papers/2303_00848.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Consistency Models', arxiv: 'https://arxiv.org/abs/2303.01469', pdf: 'pdfefile:///SyncedFolders/papers/2303_01469.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Diffusion Models', title: 'Generative Modeling by Estimating Gradients of the Data Distribution', arxiv: 'https://arxiv.org/abs/1907.05600', pdf: 'pdfefile:///SyncedFolders/papers/1907_05600.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Generative Architectures', title: 'An Introduction to Variational Autoencoders', arxiv: 'https://arxiv.org/abs/1906.02691', pdf: 'pdfefile:///SyncedFolders/papers/1906_02691.pdf' },
   { folder: 'Generative Models & Deep Learning', subsection: 'Generative Architectures', title: 'Training restricted Boltzmann machines using approximations to the likelihood gradient', doi: 'https://doi.org/10.1145/1390156.1390290' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Generative Architectures', title: 'Learning to learn generative programs with Memoised Wake-Sleep', arxiv: 'https://arxiv.org/abs/2007.03132' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Generative Architectures', title: 'Scaling up GANs for Text-to-Image Synthesis', arxiv: 'https://arxiv.org/abs/2303.05511' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Representation & Contrastive Learning', title: 'Harnessing the universal geometry of embeddings', arxiv: 'https://arxiv.org/abs/2505.12540' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Representation & Contrastive Learning', title: 'Generalized out-of-distribution detection: A survey', arxiv: 'https://arxiv.org/abs/2110.11334' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Representation & Contrastive Learning', title: 'The Power of Scale for Parameter-Efficient Prompt Tuning', arxiv: 'https://arxiv.org/abs/2104.08691' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Representation & Contrastive Learning', title: 'Supervised Contrastive Learning', arxiv: 'https://arxiv.org/abs/2004.11362' },
-  { folder: 'Generative Models & Deep Learning', subsection: 'Representation & Contrastive Learning', title: 'An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale', arxiv: 'https://arxiv.org/abs/2010.11929' },
-
-  // ── Theoretical Foundations: Optimal Transport ───────────────────────────
-  { folder: 'Optimal Transport', subsection: 'Neural OT Methods', title: 'Neural Optimal Transport', arxiv: 'https://arxiv.org/abs/2201.12220' },
-  { folder: 'Optimal Transport', subsection: 'Neural OT Methods', title: 'Generative Modeling with Optimal Transport Maps', arxiv: 'https://arxiv.org/abs/2110.02999' },
-  { folder: 'Optimal Transport', subsection: 'Neural OT Methods', title: 'Do Neural Optimal Transport Solvers Work? A Continuous Wasserstein-2 Benchmark', arxiv: 'https://arxiv.org/abs/2106.01954' },
-  { folder: 'Optimal Transport', subsection: 'Schrödinger Bridges', title: 'On the relation between optimal transport and Schrödinger bridges: A stochastic control viewpoint', arxiv: 'https://arxiv.org/abs/1412.4430' },
-  { folder: 'Optimal Transport', subsection: 'Schrödinger Bridges', title: 'Entropic Neural Optimal Transport via Diffusion Processes', arxiv: 'https://arxiv.org/abs/2211.01156' },
-  { folder: 'Optimal Transport', subsection: 'Schrödinger Bridges', title: 'A survey of the Schrödinger problem and some of its connections with optimal transport', arxiv: 'https://arxiv.org/abs/1308.0215' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Generative Architectures', title: 'Learning to learn generative programs with Memoised Wake-Sleep', arxiv: 'https://arxiv.org/abs/2007.03132', pdf: 'pdfefile:///SyncedFolders/papers/2007_03132.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Generative Architectures', title: 'Scaling up GANs for Text-to-Image Synthesis', arxiv: 'https://arxiv.org/abs/2303.05511', pdf: 'pdfefile:///SyncedFolders/papers/2303_05511.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Representation & Contrastive Learning', title: 'Harnessing the universal geometry of embeddings', arxiv: 'https://arxiv.org/abs/2505.12540', pdf: 'pdfefile:///SyncedFolders/papers/2505_12540.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Representation & Contrastive Learning', title: 'Generalized out-of-distribution detection: A survey', arxiv: 'https://arxiv.org/abs/2110.11334', pdf: 'pdfefile:///SyncedFolders/papers/2110_11334.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Representation & Contrastive Learning', title: 'The Power of Scale for Parameter-Efficient Prompt Tuning', arxiv: 'https://arxiv.org/abs/2104.08691', pdf: 'pdfefile:///SyncedFolders/papers/2104_08691.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Representation & Contrastive Learning', title: 'Supervised Contrastive Learning', arxiv: 'https://arxiv.org/abs/2004.11362', pdf: 'pdfefile:///SyncedFolders/papers/2004_11362.pdf' },
+  { folder: 'Generative Models & Deep Learning', subsection: 'Representation & Contrastive Learning', title: 'An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale', arxiv: 'https://arxiv.org/abs/2010.11929', pdf: 'pdfefile:///SyncedFolders/papers/2010_11929.pdf' },
+  { folder: 'Optimal Transport', subsection: 'Neural OT Methods', title: 'Neural Optimal Transport', arxiv: 'https://arxiv.org/abs/2201.12220', pdf: 'pdfefile:///SyncedFolders/papers/2201_12220.pdf' },
+  { folder: 'Optimal Transport', subsection: 'Neural OT Methods', title: 'Generative Modeling with Optimal Transport Maps', arxiv: 'https://arxiv.org/abs/2110.02999', pdf: 'pdfefile:///SyncedFolders/papers/2110_02999.pdf' },
+  { folder: 'Optimal Transport', subsection: 'Neural OT Methods', title: 'Do Neural Optimal Transport Solvers Work? A Continuous Wasserstein-2 Benchmark', arxiv: 'https://arxiv.org/abs/2106.01954', pdf: 'pdfefile:///SyncedFolders/papers/2106_01954.pdf' },
+  { folder: 'Optimal Transport', subsection: 'Schrödinger Bridges', title: 'On the relation between optimal transport and Schrödinger bridges: A stochastic control viewpoint', arxiv: 'https://arxiv.org/abs/1412.4430', pdf: 'pdfefile:///SyncedFolders/papers/1412_4430.pdf' },
+  { folder: 'Optimal Transport', subsection: 'Schrödinger Bridges', title: 'Entropic Neural Optimal Transport via Diffusion Processes', arxiv: 'https://arxiv.org/abs/2211.01156', pdf: 'pdfefile:///SyncedFolders/papers/2211_01156.pdf' },
+  { folder: 'Optimal Transport', subsection: 'Schrödinger Bridges', title: 'A survey of the Schrödinger problem and some of its connections with optimal transport', arxiv: 'https://arxiv.org/abs/1308.0215', pdf: 'pdfefile:///SyncedFolders/papers/1308_0215.pdf' },
   { folder: 'Optimal Transport', subsection: 'Theoretical Foundations', title: 'Optimal Transport: Old and New' },
-  { folder: 'Optimal Transport', subsection: 'Theoretical Foundations', title: 'Computational Optimal Transport', arxiv: 'https://arxiv.org/abs/1803.00567' },
-
-  // ── Theoretical Foundations: Probabilistic ML & Inference ────────────────
-  { folder: 'Probabilistic ML & Inference', subsection: 'Sequential Monte Carlo', title: 'An invitation to sequential Monte Carlo samplers', arxiv: 'https://arxiv.org/abs/2007.11936' },
+  { folder: 'Optimal Transport', subsection: 'Theoretical Foundations', title: 'Computational Optimal Transport', arxiv: 'https://arxiv.org/abs/1803.00567', pdf: 'pdfefile:///SyncedFolders/papers/1803_00567.pdf' },
+  { folder: 'Probabilistic ML & Inference', subsection: 'Sequential Monte Carlo', title: 'An invitation to sequential Monte Carlo samplers', arxiv: 'https://arxiv.org/abs/2007.11936', pdf: 'pdfefile:///SyncedFolders/papers/2007_11936.pdf' },
   { folder: 'Probabilistic ML & Inference', subsection: 'Sequential Monte Carlo', title: 'Lecture Notes on Sequenctial Monte Carlo Methods' },
-  { folder: 'Probabilistic ML & Inference', subsection: 'Sequential Monte Carlo', title: 'Probabilistic inference in language models via twisted Sequential Monte Carlo', arxiv: 'https://arxiv.org/abs/2404.17546' },
-  { folder: 'Probabilistic ML & Inference', subsection: 'Statistical Learning Theory', title: 'Review and prospect of algebraic research in equivalent framework between statistical mechanics and machine learning theory', arxiv: 'https://arxiv.org/abs/2406.10234' },
+  { folder: 'Probabilistic ML & Inference', subsection: 'Sequential Monte Carlo', title: 'Probabilistic inference in language models via twisted Sequential Monte Carlo', arxiv: 'https://arxiv.org/abs/2404.17546', pdf: 'pdfefile:///SyncedFolders/papers/2404_17546.pdf' },
+  { folder: 'Probabilistic ML & Inference', subsection: 'Statistical Learning Theory', title: 'Review and prospect of algebraic research in equivalent framework between statistical mechanics and machine learning theory', arxiv: 'https://arxiv.org/abs/2406.10234', pdf: 'pdfefile:///SyncedFolders/papers/2406_10234.pdf' },
   { folder: 'Probabilistic ML & Inference', subsection: 'Statistical Learning Theory', title: 'Probabilistic Machine Learning: Advanced Topics' },
   { folder: 'Probabilistic ML & Inference', subsection: 'Statistical Learning Theory', title: 'Probabilistic Machine Learning: An Introduction' },
-  { folder: 'Probabilistic ML & Inference', subsection: 'Statistical Learning Theory', title: 'Reconciling modern machine learning practice and the bias-variance trade-off', arxiv: 'https://arxiv.org/abs/1812.11118' },
-  { folder: 'Probabilistic ML & Inference', subsection: 'Statistical Learning Theory', title: 'A U-turn on Double Descent: Rethinking Parameter Counting in Statistical Learning', arxiv: 'https://arxiv.org/abs/2310.18988' },
-  { folder: 'Probabilistic ML & Inference', subsection: 'Variational Inference & Latent Variables', title: 'Probabilistic Artificial Intelligence', arxiv: 'https://arxiv.org/abs/2502.05244' },
-  { folder: 'Probabilistic ML & Inference', subsection: 'Variational Inference & Latent Variables', title: 'Markovian Score Climbing: Variational Inference with KL(p||q)', arxiv: 'https://arxiv.org/abs/2003.10374' },
-  { folder: 'Probabilistic ML & Inference', subsection: 'Variational Inference & Latent Variables', title: 'A review of Monte Carlo-based versions of the EM algorithm', arxiv: 'https://arxiv.org/abs/2401.00945' },
-  { folder: 'Probabilistic ML & Inference', subsection: 'Variational Inference & Latent Variables', title: 'Towards Interpretable Natural Language Understanding with Explanations as Latent Variables', arxiv: 'https://arxiv.org/abs/2011.05268' },
-
-  // ── Human & Social Dimensions: Theory of Mind ────────────────────────────
+  { folder: 'Probabilistic ML & Inference', subsection: 'Statistical Learning Theory', title: 'Reconciling modern machine learning practice and the bias-variance trade-off', arxiv: 'https://arxiv.org/abs/1812.11118', pdf: 'pdfefile:///SyncedFolders/papers/1812_11118.pdf' },
+  { folder: 'Probabilistic ML & Inference', subsection: 'Statistical Learning Theory', title: 'A U-turn on Double Descent: Rethinking Parameter Counting in Statistical Learning', arxiv: 'https://arxiv.org/abs/2310.18988', pdf: 'pdfefile:///SyncedFolders/papers/2310_18988.pdf' },
+  { folder: 'Probabilistic ML & Inference', subsection: 'Variational Inference & Latent Variables', title: 'Probabilistic Artificial Intelligence', arxiv: 'https://arxiv.org/abs/2502.05244', pdf: 'pdfefile:///SyncedFolders/papers/2502_05244.pdf' },
+  { folder: 'Probabilistic ML & Inference', subsection: 'Variational Inference & Latent Variables', title: 'Markovian Score Climbing: Variational Inference with KL(p||q)', arxiv: 'https://arxiv.org/abs/2003.10374', pdf: 'pdfefile:///SyncedFolders/papers/2003_10374.pdf' },
+  { folder: 'Probabilistic ML & Inference', subsection: 'Variational Inference & Latent Variables', title: 'A review of Monte Carlo-based versions of the EM algorithm', arxiv: 'https://arxiv.org/abs/2401.00945', pdf: 'pdfefile:///SyncedFolders/papers/2401_00945.pdf' },
+  { folder: 'Probabilistic ML & Inference', subsection: 'Variational Inference & Latent Variables', title: 'Towards Interpretable Natural Language Understanding with Explanations as Latent Variables', arxiv: 'https://arxiv.org/abs/2011.05268', pdf: 'pdfefile:///SyncedFolders/papers/2011_05268.pdf' },
   { folder: 'Theory of Mind & Social Cognition', subsection: 'Human Social Cognition & Development', title: 'Making It Explicit' },
-  { folder: 'Theory of Mind & Social Cognition', subsection: 'Human Social Cognition & Development', title: 'Understanding epistemic language with a Bayesian theory of mind', arxiv: 'https://arxiv.org/abs/2408.12022' },
+  { folder: 'Theory of Mind & Social Cognition', subsection: 'Human Social Cognition & Development', title: 'Understanding epistemic language with a Bayesian theory of mind', arxiv: 'https://arxiv.org/abs/2408.12022', pdf: 'pdfefile:///SyncedFolders/papers/2408_12022.pdf' },
   { folder: 'Theory of Mind & Social Cognition', subsection: 'Human Social Cognition & Development', title: 'Learning by thinking in natural and artificial minds', doi: 'https://doi.org/10.1016/j.tics.2024.07.007' },
   { folder: 'Theory of Mind & Social Cognition', subsection: 'Human Social Cognition & Development', title: 'Scaling of theory-of-mind tasks', doi: 'https://doi.org/10.1111/j.1467-8624.2004.00691.x' },
   { folder: 'Theory of Mind & Social Cognition', subsection: 'Human Social Cognition & Development', title: 'Culture and the sequence of steps in theory of mind development', doi: 'https://doi.org/10.1037/a0023899' },
   { folder: 'Theory of Mind & Social Cognition', subsection: 'Human Social Cognition & Development', title: 'Distinguishing between realistic and fantastical figures in Iran', doi: 'https://doi.org/10.1037/dev0000079' },
-  { folder: 'Theory of Mind & Social Cognition', subsection: 'Multi-Agent & Scaffolded ToM', title: 'Agent-to-agent theory of mind: Testing interlocutor awareness among large language models', arxiv: 'https://arxiv.org/abs/2506.22957' },
-  { folder: 'Theory of Mind & Social Cognition', subsection: 'Multi-Agent & Scaffolded ToM', title: 'Hypothetical Minds: Scaffolding Theory of Mind for multi-agent tasks with large language models', arxiv: 'https://arxiv.org/abs/2407.07086' },
-  { folder: 'Theory of Mind & Social Cognition', subsection: 'Multi-Agent & Scaffolded ToM', title: 'Can large language models adapt to other agents in-context?', arxiv: 'https://arxiv.org/abs/2412.19726' },
-  { folder: 'Theory of Mind & Social Cognition', subsection: 'Multi-Agent & Scaffolded ToM', title: 'Theory of Mind for Multi-Agent Collaboration via Large Language Models', arxiv: 'https://arxiv.org/abs/2310.10701' },
-  { folder: 'Theory of Mind & Social Cognition', subsection: 'ToM Evaluation in LLMs', title: 'Boosting Theory-of-Mind Performance in Large Language Models via Prompting', arxiv: 'https://arxiv.org/abs/2304.11490' },
-  { folder: 'Theory of Mind & Social Cognition', subsection: 'ToM Evaluation in LLMs', title: 'Evaluating Large Language Models in Theory of Mind Tasks', arxiv: 'https://arxiv.org/abs/2302.02083' },
-  { folder: 'Theory of Mind & Social Cognition', subsection: 'ToM Evaluation in LLMs', title: 'Large Language Models Fail on Trivial Alterations to Theory-of-Mind Tasks', arxiv: 'https://arxiv.org/abs/2302.08399' },
-  { folder: 'Theory of Mind & Social Cognition', subsection: 'ToM Evaluation in LLMs', title: 'Neural Theory-of-Mind? On the Limits of Social Intelligence in Large LMs', arxiv: 'https://arxiv.org/abs/2210.13312' },
-
-  // ── Human & Social Dimensions: Clarification & Dialogue ──────────────────
-  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Ambiguous QA & Instruction Following', title: 'Can language models follow multiple turns of entangled instructions?', arxiv: 'https://arxiv.org/abs/2503.13222' },
-  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Ambiguous QA & Instruction Following', title: 'AmbigQA: Answering ambiguous open-domain questions', arxiv: 'https://arxiv.org/abs/2004.10645' },
-  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Ambiguous QA & Instruction Following', title: 'Randomness, not representation: The unreliability of evaluating cultural alignment in LLMs', arxiv: 'https://arxiv.org/abs/2503.08688' },
-  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Clarification Question Generation', title: 'Clarify when necessary: Resolving ambiguity through interaction with LMs', arxiv: 'https://arxiv.org/abs/2311.09469' },
-  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Clarification Question Generation', title: 'Learning to clarify: Multi-turn conversations with action-Based Contrastive Self-Training', arxiv: 'https://arxiv.org/abs/2406.00222' },
-  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Clarification Question Generation', title: 'Asking clarification questions to handle ambiguity in open-domain QA', arxiv: 'https://arxiv.org/abs/2305.13808' },
-  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Clarification Question Generation', title: 'Modeling future conversation turns to teach LLMs to ask clarifying questions', arxiv: 'https://arxiv.org/abs/2410.13788' },
-  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Clarification Question Generation', title: 'STaR-GATE: Teaching language models to ask clarifying questions', arxiv: 'https://arxiv.org/abs/2403.19154' },
-
-  // ── Human & Social Dimensions: Human-AI Interaction ──────────────────────
+  { folder: 'Theory of Mind & Social Cognition', subsection: 'Multi-Agent & Scaffolded ToM', title: 'Agent-to-agent theory of mind: Testing interlocutor awareness among large language models', arxiv: 'https://arxiv.org/abs/2506.22957', pdf: 'pdfefile:///SyncedFolders/papers/2506_22957.pdf' },
+  { folder: 'Theory of Mind & Social Cognition', subsection: 'Multi-Agent & Scaffolded ToM', title: 'Hypothetical Minds: Scaffolding Theory of Mind for multi-agent tasks with large language models', arxiv: 'https://arxiv.org/abs/2407.07086', pdf: 'pdfefile:///SyncedFolders/papers/2407_07086.pdf' },
+  { folder: 'Theory of Mind & Social Cognition', subsection: 'Multi-Agent & Scaffolded ToM', title: 'Can large language models adapt to other agents in-context?', arxiv: 'https://arxiv.org/abs/2412.19726', pdf: 'pdfefile:///SyncedFolders/papers/2412_19726.pdf' },
+  { folder: 'Theory of Mind & Social Cognition', subsection: 'Multi-Agent & Scaffolded ToM', title: 'Theory of Mind for Multi-Agent Collaboration via Large Language Models', arxiv: 'https://arxiv.org/abs/2310.10701', pdf: 'pdfefile:///SyncedFolders/papers/2310_10701.pdf' },
+  { folder: 'Theory of Mind & Social Cognition', subsection: 'ToM Evaluation in LLMs', title: 'Boosting Theory-of-Mind Performance in Large Language Models via Prompting', arxiv: 'https://arxiv.org/abs/2304.11490', pdf: 'pdfefile:///SyncedFolders/papers/2304_11490.pdf' },
+  { folder: 'Theory of Mind & Social Cognition', subsection: 'ToM Evaluation in LLMs', title: 'Evaluating Large Language Models in Theory of Mind Tasks', arxiv: 'https://arxiv.org/abs/2302.02083', pdf: 'pdfefile:///SyncedFolders/papers/2302_02083.pdf' },
+  { folder: 'Theory of Mind & Social Cognition', subsection: 'ToM Evaluation in LLMs', title: 'Large Language Models Fail on Trivial Alterations to Theory-of-Mind Tasks', arxiv: 'https://arxiv.org/abs/2302.08399', pdf: 'pdfefile:///SyncedFolders/papers/2302_08399.pdf' },
+  { folder: 'Theory of Mind & Social Cognition', subsection: 'ToM Evaluation in LLMs', title: 'Neural Theory-of-Mind? On the Limits of Social Intelligence in Large LMs', arxiv: 'https://arxiv.org/abs/2210.13312', pdf: 'pdfefile:///SyncedFolders/papers/2210_13312.pdf' },
+  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Ambiguous QA & Instruction Following', title: 'Can language models follow multiple turns of entangled instructions?', arxiv: 'https://arxiv.org/abs/2503.13222', pdf: 'pdfefile:///SyncedFolders/papers/2503_13222.pdf' },
+  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Ambiguous QA & Instruction Following', title: 'AmbigQA: Answering ambiguous open-domain questions', arxiv: 'https://arxiv.org/abs/2004.10645', pdf: 'pdfefile:///SyncedFolders/papers/2004_10645.pdf' },
+  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Ambiguous QA & Instruction Following', title: 'Randomness, not representation: The unreliability of evaluating cultural alignment in LLMs', arxiv: 'https://arxiv.org/abs/2503.08688', pdf: 'pdfefile:///SyncedFolders/papers/2503_08688.pdf' },
+  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Clarification Question Generation', title: 'Clarify when necessary: Resolving ambiguity through interaction with LMs', arxiv: 'https://arxiv.org/abs/2311.09469', pdf: 'pdfefile:///SyncedFolders/papers/2311_09469.pdf' },
+  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Clarification Question Generation', title: 'Learning to clarify: Multi-turn conversations with action-Based Contrastive Self-Training', arxiv: 'https://arxiv.org/abs/2406.00222', pdf: 'pdfefile:///SyncedFolders/papers/2406_00222.pdf' },
+  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Clarification Question Generation', title: 'Asking clarification questions to handle ambiguity in open-domain QA', arxiv: 'https://arxiv.org/abs/2305.13808', pdf: 'pdfefile:///SyncedFolders/papers/2305_13808.pdf' },
+  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Clarification Question Generation', title: 'Modeling future conversation turns to teach LLMs to ask clarifying questions', arxiv: 'https://arxiv.org/abs/2410.13788', pdf: 'pdfefile:///SyncedFolders/papers/2410_13788.pdf' },
+  { folder: 'Clarification, Ambiguity & Dialogue', subsection: 'Clarification Question Generation', title: 'STaR-GATE: Teaching language models to ask clarifying questions', arxiv: 'https://arxiv.org/abs/2403.19154', pdf: 'pdfefile:///SyncedFolders/papers/2403_19154.pdf' },
   { folder: 'Human-AI Interaction & Society', subsection: 'Collaborative AI & Group Dynamics', title: 'Era of Experience' },
-  { folder: 'Human-AI Interaction & Society', subsection: 'Collaborative AI & Group Dynamics', title: 'Exploring collaborative GenAI agents in synchronous group settings: Eliciting team perceptions and design considerations for the future of work', arxiv: 'https://arxiv.org/abs/2504.14779' },
+  { folder: 'Human-AI Interaction & Society', subsection: 'Collaborative AI & Group Dynamics', title: 'Exploring collaborative GenAI agents in synchronous group settings: Eliciting team perceptions and design considerations for the future of work', arxiv: 'https://arxiv.org/abs/2504.14779', pdf: 'pdfefile:///SyncedFolders/papers/2504_14779.pdf' },
   { folder: 'Human-AI Interaction & Society', subsection: 'Reference & Broader Context', title: 'The Global Risks Report 2025' },
   { folder: 'Human-AI Interaction & Society', subsection: 'Reference & Broader Context', title: 'The top 100 papers', doi: 'https://doi.org/10.1038/514550a' },
   { folder: 'Human-AI Interaction & Society', subsection: 'Reliance, Trust & Personalization', title: 'Misalignment, learning, and ranking: Harnessing users limited attention' },
-  { folder: 'Human-AI Interaction & Society', subsection: 'Reliance, Trust & Personalization', title: 'Rel-A.i.: An interaction-centered approach to measuring human-LM reliance', arxiv: 'https://arxiv.org/abs/2407.07950' },
-  { folder: 'Human-AI Interaction & Society', subsection: 'Reliance, Trust & Personalization', title: 'PersonalLLM: Tailoring LLMs to individual preferences', arxiv: 'https://arxiv.org/abs/2409.20296' },
-
-  // ── Fact-Checking & Media Integrity ──────────────────────────────────────
-  { folder: 'Fact-Checking & Content Moderation', subsection: 'Automated Claim Verification', title: 'AVeriTeC: A Dataset for Real-world Claim Verification with Evidence from the Web', arxiv: 'https://arxiv.org/abs/2305.13117' },
-  { folder: 'Fact-Checking & Content Moderation', subsection: 'Automated Claim Verification', title: 'Document-level Claim Extraction and Decontextualisation for Fact-Checking', arxiv: 'https://arxiv.org/abs/2406.03239' },
-  { folder: 'Fact-Checking & Content Moderation', subsection: 'Crowdsourced Fact-Checking', title: 'Birdwatch: Crowd wisdom and bridging algorithms can inform understanding and reduce the spread of misinformation', arxiv: 'https://arxiv.org/abs/2210.15723' },
+  { folder: 'Human-AI Interaction & Society', subsection: 'Reliance, Trust & Personalization', title: 'Rel-A.i.: An interaction-centered approach to measuring human-LM reliance', arxiv: 'https://arxiv.org/abs/2407.07950', pdf: 'pdfefile:///SyncedFolders/papers/2407_07950.pdf' },
+  { folder: 'Human-AI Interaction & Society', subsection: 'Reliance, Trust & Personalization', title: 'PersonalLLM: Tailoring LLMs to individual preferences', arxiv: 'https://arxiv.org/abs/2409.20296', pdf: 'pdfefile:///SyncedFolders/papers/2409_20296.pdf' },
+  { folder: 'Fact-Checking & Content Moderation', subsection: 'Automated Claim Verification', title: 'AVeriTeC: A Dataset for Real-world Claim Verification with Evidence from the Web', arxiv: 'https://arxiv.org/abs/2305.13117', pdf: 'pdfefile:///SyncedFolders/papers/2305_13117.pdf' },
+  { folder: 'Fact-Checking & Content Moderation', subsection: 'Automated Claim Verification', title: 'Document-level Claim Extraction and Decontextualisation for Fact-Checking', arxiv: 'https://arxiv.org/abs/2406.03239', pdf: 'pdfefile:///SyncedFolders/papers/2406_03239.pdf' },
+  { folder: 'Fact-Checking & Content Moderation', subsection: 'Crowdsourced Fact-Checking', title: 'Birdwatch: Crowd wisdom and bridging algorithms can inform understanding and reduce the spread of misinformation', arxiv: 'https://arxiv.org/abs/2210.15723', pdf: 'pdfefile:///SyncedFolders/papers/2210_15723.pdf' },
   { folder: 'Fact-Checking & Content Moderation', subsection: 'Crowdsourced Fact-Checking', title: 'Birds of a feather don\'t fact-check each other: Partisanship and the evaluation of news in Twitter\'s Birdwatch crowdsourced fact-checking program', doi: 'https://doi.org/10.1145/3491102.3502040' },
   { folder: 'Fact-Checking & Content Moderation', subsection: 'Platform Trust & Moderation', title: 'How platform recommendation systems might reduce division and strengthen democracy' },
   { folder: 'Fact-Checking & Content Moderation', subsection: 'Platform Trust & Moderation', title: 'Partisan conflict over content moderation is more than disagreement about facts', doi: 'https://doi.org/10.1126/sciadv.adg6799' },
-  { folder: 'Fact-Checking & Content Moderation', subsection: 'Platform Trust & Moderation', title: 'Debating with More Persuasive LLMs Leads to More Truthful Answers', arxiv: 'https://arxiv.org/abs/2402.06782' },
-  { folder: 'Synthetic Media Detection & Vision', subsection: 'Deepfake & Forgery Detection', title: 'Parents and Children: Distinguishing Multimodal DeepFakes from Natural Images', arxiv: 'https://arxiv.org/abs/2304.00500' },
-  { folder: 'Synthetic Media Detection & Vision', subsection: 'Deepfake & Forgery Detection', title: 'What makes fake images detectable? Understanding properties that generalize', arxiv: 'https://arxiv.org/abs/2008.10588' },
-  { folder: 'Synthetic Media Detection & Vision', subsection: 'Deepfake & Forgery Detection', title: 'Towards Universal Fake Image Detectors that Generalize Across Generative Models', arxiv: 'https://arxiv.org/abs/2302.10174' },
-  { folder: 'Synthetic Media Detection & Vision', subsection: 'Deepfake & Forgery Detection', title: 'Hierarchical Fine-Grained Image Forgery Detection and Localization', arxiv: 'https://arxiv.org/abs/2303.17111' },
-  { folder: 'Synthetic Media Detection & Vision', subsection: 'Image Attribution & Detection', title: 'On the detection of synthetic images generated by diffusion models', arxiv: 'https://arxiv.org/abs/2211.00680' },
-  { folder: 'Synthetic Media Detection & Vision', subsection: 'Image Attribution & Detection', title: 'Detecting Image Attribution for Text-to-Image Diffusion Models in RGB and Beyond', arxiv: 'https://arxiv.org/abs/2403.19653' },
-  { folder: 'Synthetic Media Detection & Vision', subsection: 'Multimodal & Visual Reasoning', title: 'ViperGPT: Visual Inference via Python Execution for Reasoning', arxiv: 'https://arxiv.org/abs/2303.08128' },
-  { folder: 'Synthetic Media Detection & Vision', subsection: 'Multimodal & Visual Reasoning', title: 'Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language', arxiv: 'https://arxiv.org/abs/2204.00598' },
+  { folder: 'Fact-Checking & Content Moderation', subsection: 'Platform Trust & Moderation', title: 'Debating with More Persuasive LLMs Leads to More Truthful Answers', arxiv: 'https://arxiv.org/abs/2402.06782', pdf: 'pdfefile:///SyncedFolders/papers/2402_06782.pdf' },
+  { folder: 'Synthetic Media Detection & Vision', subsection: 'Deepfake & Forgery Detection', title: 'Parents and Children: Distinguishing Multimodal DeepFakes from Natural Images', arxiv: 'https://arxiv.org/abs/2304.00500', pdf: 'pdfefile:///SyncedFolders/papers/2304_00500.pdf' },
+  { folder: 'Synthetic Media Detection & Vision', subsection: 'Deepfake & Forgery Detection', title: 'What makes fake images detectable? Understanding properties that generalize', arxiv: 'https://arxiv.org/abs/2008.10588', pdf: 'pdfefile:///SyncedFolders/papers/2008_10588.pdf' },
+  { folder: 'Synthetic Media Detection & Vision', subsection: 'Deepfake & Forgery Detection', title: 'Towards Universal Fake Image Detectors that Generalize Across Generative Models', arxiv: 'https://arxiv.org/abs/2302.10174', pdf: 'pdfefile:///SyncedFolders/papers/2302_10174.pdf' },
+  { folder: 'Synthetic Media Detection & Vision', subsection: 'Deepfake & Forgery Detection', title: 'Hierarchical Fine-Grained Image Forgery Detection and Localization', arxiv: 'https://arxiv.org/abs/2303.17111', pdf: 'pdfefile:///SyncedFolders/papers/2303_17111.pdf' },
+  { folder: 'Synthetic Media Detection & Vision', subsection: 'Image Attribution & Detection', title: 'On the detection of synthetic images generated by diffusion models', arxiv: 'https://arxiv.org/abs/2211.00680', pdf: 'pdfefile:///SyncedFolders/papers/2211_00680.pdf' },
+  { folder: 'Synthetic Media Detection & Vision', subsection: 'Image Attribution & Detection', title: 'Detecting Image Attribution for Text-to-Image Diffusion Models in RGB and Beyond', arxiv: 'https://arxiv.org/abs/2403.19653', pdf: 'pdfefile:///SyncedFolders/papers/2403_19653.pdf' },
+  { folder: 'Synthetic Media Detection & Vision', subsection: 'Multimodal & Visual Reasoning', title: 'ViperGPT: Visual Inference via Python Execution for Reasoning', arxiv: 'https://arxiv.org/abs/2303.08128', pdf: 'pdfefile:///SyncedFolders/papers/2303_08128.pdf' },
+  { folder: 'Synthetic Media Detection & Vision', subsection: 'Multimodal & Visual Reasoning', title: 'Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language', arxiv: 'https://arxiv.org/abs/2204.00598', pdf: 'pdfefile:///SyncedFolders/papers/2204_00598.pdf' },
 ];
-
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const papersInFolder  = folder  => PAPERS.filter(p => p.folder === folder);
 const papersInSection = section => PAPERS.filter(p => section.folders.includes(p.folder));
-
 function groupBySubsection(papers) {
   const groups = new Map();
   for (const p of papers) {
@@ -376,15 +287,13 @@ function groupBySubsection(papers) {
   }
   return Array.from(groups.entries()).map(([name, papers]) => ({ name, papers }));
 }
-
 function paperLinks(p) {
   const out = [];
   if (p.arxiv) out.push({ name: 'arXiv', url: p.arxiv });
   if (p.doi)   out.push({ name: 'DOI',   url: p.doi });
-  if (p.pdf)   out.push({ name: 'PDF',   url: p.pdf });
+  if (p.pdf)   out.push({ name: 'pdf on iPad', url: p.pdf });
   return out;
 }
-
 function renderPaper(p, context) {
   const meta  = [p.authors, p.year].filter(Boolean).join(', ');
   const links = paperLinks(p);
@@ -402,7 +311,6 @@ function renderPaper(p, context) {
       </div>
     </div>`;
 }
-
 function renderPaperList(papers) {
   if (!papers.length) return '<div class="state">No papers yet.</div>';
   return groupBySubsection(papers).map(g => `
@@ -411,16 +319,11 @@ function renderPaperList(papers) {
       ${g.papers.map(p => renderPaper(p)).join('')}
     </section>`).join('');
 }
-
-// ─── STATS ───────────────────────────────────────────────────────────────────
 function renderStats() {
   const total = PAPERS.length;
   const read  = PAPERS.filter(p => p.done).length;
-  document.getElementById('page-stats').textContent =
-    `${read}/${total} read · ${SECTIONS.length} sections`;
+  document.getElementById('page-stats').textContent = `${read}/${total} read · ${SECTIONS.length} sections`;
 }
-
-// ─── OVERVIEW ────────────────────────────────────────────────────────────────
 function renderOverview() {
   const html = `<div class="section-list">${SECTIONS.map(section => {
     const papers   = papersInSection(section);
@@ -432,42 +335,27 @@ function renderOverview() {
     for (let k = 0; k < dotCount; k++) dots += `<span class="progress-dot${k < dotsRead ? ' read' : ''}"></span>`;
     return `
       <div class="section-row" data-section="${esc(section.name)}">
-        <div class="section-name">
-          ${esc(section.name)}
-          ${section.tag ? `<span class="section-tag">${esc(section.tag)}</span>` : ''}
-        </div>
+        <div class="section-name">${esc(section.name)}</div>
         <div class="section-progress">${dots}</div>
         <div class="section-count">${read}/${total}</div>
       </div>`;
   }).join('')}</div>`;
-
   const c = document.getElementById('content');
   c.innerHTML = html;
   c.querySelectorAll('.section-row').forEach(row =>
     row.addEventListener('click', () => showSection(row.dataset.section))
   );
 }
-
-// ─── SECTION VIEW ────────────────────────────────────────────────────────────
 function showSection(sectionName) {
   const section = SECTIONS.find(s => s.name === sectionName);
   if (!section) return;
-
-  // Single-folder sections go straight to papers
-  if (section.folders.length === 1) {
-    showFolder(section.folders[0], sectionName);
-    return;
-  }
-
+  if (section.folders.length === 1) { showFolder(section.folders[0], sectionName); return; }
   const allPapers = papersInSection(section);
   const read = allPapers.filter(p => p.done).length;
-
   const html = `
     <div class="nav-header">
       <button class="back-btn" id="back-btn">← all sections</button>
-      <div class="nav-title-block">
-        <h2 class="nav-title">${esc(section.name)}</h2>
-      </div>
+      <div class="nav-title-block"><h2 class="nav-title">${esc(section.name)}</h2></div>
       <div class="nav-stats">${read}/${allPapers.length}</div>
     </div>
     <div class="folder-list">
@@ -480,7 +368,6 @@ function showSection(sectionName) {
         </div>`;
       }).join('')}
     </div>`;
-
   const c = document.getElementById('content');
   c.innerHTML = html;
   document.getElementById('back-btn').addEventListener('click', () => {
@@ -492,14 +379,11 @@ function showSection(sectionName) {
   );
   window.scrollTo(0, 0);
 }
-
-// ─── FOLDER VIEW ─────────────────────────────────────────────────────────────
 function showFolder(folderName, sectionName) {
   const papers      = papersInFolder(folderName);
   const read        = papers.filter(p => p.done).length;
   const section     = SECTIONS.find(s => s.name === sectionName);
   const multiFolder = section && section.folders.length > 1;
-
   const html = `
     <div class="nav-header">
       <button class="back-btn" id="back-btn">← ${multiFolder ? esc(sectionName) : 'all sections'}</button>
@@ -510,7 +394,6 @@ function showFolder(folderName, sectionName) {
       <div class="nav-stats">${read}/${papers.length}</div>
     </div>
     ${renderPaperList(papers)}`;
-
   const c = document.getElementById('content');
   c.innerHTML = html;
   document.getElementById('back-btn').addEventListener('click', () => {
@@ -519,8 +402,6 @@ function showFolder(folderName, sectionName) {
   });
   window.scrollTo(0, 0);
 }
-
-// ─── SEARCH ───────────────────────────────────────────────────────────────────
 function renderSearch(q) {
   const ql = q.toLowerCase();
   const results = PAPERS.filter(p =>
@@ -530,12 +411,10 @@ function renderSearch(q) {
     <div class="search-meta">${results.length} result${results.length === 1 ? '' : 's'} for "${esc(q)}"</div>
     ${results.map(p => renderPaper(p, p.subsection ? `${p.folder} / ${p.subsection}` : p.folder)).join('')}`;
 }
-
 document.getElementById('search-input').addEventListener('input', e => {
   const q = e.target.value.trim();
   if (!q) renderOverview(); else renderSearch(q);
 });
-
 renderStats();
 renderOverview();
 </script>
